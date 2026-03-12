@@ -2,6 +2,34 @@
 // Todas as requisições (GET, POST, DELETE) irão para essa URL
 const api = "/api/alunos";
 
+// ===============================
+// CONTROLE DE AUTENTICAÇÃO
+// ===============================
+function checkAuth() {
+    const loggedUser = localStorage.getItem("loggedUser");
+
+    if (!loggedUser) {
+        // Se não estiver logado, volta para a landing page
+        window.location.href = "login.html";
+        return;
+    }
+
+    // Atualiza a informação de usuário na barra superior
+    const userEmailSpan = document.getElementById("user-email");
+    if (userEmailSpan) {
+        userEmailSpan.textContent = loggedUser;
+    }
+}
+
+function logout() {
+    localStorage.removeItem("loggedUser");
+    localStorage.removeItem("authToken");
+    window.location.href = "login.html";
+}
+
+// Executa verificação de login assim que o script carregar
+checkAuth();
+
 
 // ===============================
 // FUNÇÃO PARA CADASTRAR ALUNO
@@ -19,15 +47,18 @@ function cadastrarAluno() {
         return; // Interrompe a função
     }
 
+    const token = localStorage.getItem("authToken");
+
     // Faz requisição HTTP para a API usando fetch
     fetch(api, {
 
         // Método HTTP usado para criar um novo registro
         method: "POST",
 
-        // Cabeçalho informando que estamos enviando JSON
+        // Cabeçalho informando que estamos enviando JSON + token
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
 
         // Converte o objeto JavaScript em JSON
@@ -51,8 +82,14 @@ function cadastrarAluno() {
 // ===============================
 function listarAlunos() {
 
+    const token = localStorage.getItem("authToken");
+
     // Faz requisição GET para buscar todos os alunos
-    fetch(api)
+    fetch(api, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
     .then(res => res.json()) // Converte resposta para JSON
     .then(alunos => {
 
@@ -90,9 +127,14 @@ function listarAlunos() {
 // ===============================
 function deletarAluno(id) {
 
+    const token = localStorage.getItem("authToken");
+
     // Faz requisição DELETE passando o ID na URL
     fetch(`${api}/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
     })
     .then(() => {
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo - Sistema de Alunos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing-body">
+    <div class="landing-wrapper">
+        <!-- Lado esquerdo: Login -->
+        <div class="landing-left">
+            <div class="brand-title">SISTEMA ALUNOS</div>
+            <p class="brand-subtitle">Para continuar, faça login no sistema.</p>
+
+            <form id="loginForm" class="landing-form">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Senha" required>
+
+                <a href="#" class="forgot-link">Esqueceu a senha?</a>
+
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+        </div>
+
+        <!-- Lado direito: Cadastro -->
+        <div class="landing-right">
+            <h2 class="right-title">Novo por aqui?</h2>
+            <p class="right-text">
+                Cadastre-se grátis e comece a usar<br>
+                o sistema de cadastro de alunos.
+            </p>
+
+            <form id="registerForm" class="landing-form right-form">
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="password" id="registerPassword" placeholder="Senha" required>
+                <input type="password" id="registerPasswordConfirm" placeholder="Confirmar senha" required>
+                <button type="submit" class="btn-outline">Cadastrar-se</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
+

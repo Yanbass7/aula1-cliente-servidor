@@ -1,7 +1,40 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f6f8;
-    padding: 40px;
+    margin: 0;
+}
+
+/* Barra superior da página principal */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.app-title {
+    font-weight: bold;
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout-button {
+    background-color: #dc3545;
+}
+
+.logout-button:hover {
+    background-color: #a71d2a;
+}
+
+/* Container principal da página de alunos */
+.main-container {
+    margin-top: 30px;
 }
 
 .container {
@@ -9,16 +42,17 @@ body {
     padding: 30px;
     border-radius: 8px;
     max-width: 800px;
-    margin: auto;
+    margin: 40px auto;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-h2, h3 {
+h1, h2, h3 {
     text-align: center;
 }
 
 .formulario {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
     justify-content: center;
@@ -69,4 +103,138 @@ td button {
 
 td button:hover {
     background-color: #a71d2a;
+}
+
+/* ===========================
+   Estilos da landing (login)
+   =========================== */
+.landing-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f3f3f3; /* fundo neutro fora do card */
+}
+
+.landing-wrapper {
+    display: flex;
+    width: 900px;
+    height: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    /* divisão de cores apenas dentro do card */
+    background: linear-gradient(90deg, #ffffff 0%, #ffffff 50%, #e3efff 50%, #d2e4ff 100%);
+}
+
+.landing-left,
+.landing-right {
+    flex: 1;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.landing-left {
+    background: transparent; /* usa lado branco do gradiente do wrapper */
+}
+
+.landing-right {
+    background: transparent; /* usa lado azul claro do gradiente do wrapper */
+    color: #111; /* textos principais em preto */
+    text-align: center;
+}
+
+.brand-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.brand-subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.landing-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.landing-form input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.landing-form input:focus {
+    border-color: #ff0066;
+    box-shadow: 0 0 0 2px rgba(255, 0, 102, 0.15);
+}
+
+.forgot-link {
+    font-size: 12px;
+    color: #777;
+    text-decoration: none;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.btn-primary {
+    background-color: #3b82f6; /* azul mais neutro */
+    color: #fff;
+    border-radius: 999px;
+    padding: 10px 0;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.right-title {
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.right-text {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.right-form {
+    align-items: center;
+}
+
+.right-form input {
+    max-width: 260px;
+}
+
+.btn-outline {
+    margin-top: 10px;
+    padding: 10px 30px;
+    border-radius: 999px;
+    background: transparent;
+    border: 2px solid #3b82f6;
+    color: #3b82f6;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-outline:hover {
+    background: rgba(255,255,255,0.12);
 }
