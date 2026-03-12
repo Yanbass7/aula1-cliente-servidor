@@ -30,6 +30,7 @@ function registerUser(event) {
       // Salva token e e-mail e já entra no sistema
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("loggedUser", data.email);
+      localStorage.setItem("userRole", data.role || "user");
       alert("Cadastro realizado com sucesso!");
       window.location.href = "index.html";
     })
@@ -63,6 +64,7 @@ function loginUser(event) {
       }
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("loggedUser", data.email);
+      localStorage.setItem("userRole", data.role || "user");
       window.location.href = "index.html";
     })
     .catch((err) => {

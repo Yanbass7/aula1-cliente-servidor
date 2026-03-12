@@ -97,11 +97,20 @@ th, td {
     text-align: center;
 }
 
-td button {
+.btn-edit {
+    background-color: #facc15; /* amarelo */
+    color: #000;
+}
+
+.btn-edit:hover {
+    background-color: #eab308;
+}
+
+.btn-delete {
     background-color: #dc3545;
 }
 
-td button:hover {
+.btn-delete:hover {
     background-color: #a71d2a;
 }
 

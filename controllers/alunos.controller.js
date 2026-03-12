@@ -78,6 +78,11 @@ exports.atualizarAluno = (req, res) => {
 exports.deletarAluno = (req, res) => {
   const id = req.params.id;
 
+  // Apenas administrador pode excluir
+  if (!req.user || req.user.role !== 'admin') {
+    return res.status(403).json({ mensagem: 'Apenas o administrador pode excluir alunos.' });
+  }
+
   db.query("DELETE FROM alunos WHERE id = ?", [id], (err, result) => {
     if (err) {
       return res.status(500).json({ erro: err.message });

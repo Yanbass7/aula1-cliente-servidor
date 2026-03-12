@@ -7,6 +7,7 @@ const api = "/api/alunos";
 // ===============================
 function checkAuth() {
     const loggedUser = localStorage.getItem("loggedUser");
+    const userRole = localStorage.getItem("userRole") || "user";
 
     if (!loggedUser) {
         // Se não estiver logado, volta para a landing page
@@ -19,11 +20,15 @@ function checkAuth() {
     if (userEmailSpan) {
         userEmailSpan.textContent = loggedUser;
     }
+
+    // Exibe papel do usuário no console para debug (opcional)
+    console.log("Usuário logado:", loggedUser, "Role:", userRole);
 }
 
 function logout() {
     localStorage.removeItem("loggedUser");
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userRole");
     window.location.href = "login.html";
 }
 
@@ -37,6 +42,7 @@ checkAuth();
 function cadastrarAluno() {
 
     // Captura os valores digitados nos inputs do HTML
+    const id = document.getElementById("alunoId").value;
     const nome = document.getElementById("nome").value;
     const idade = document.getElementById("idade").value;
     const curso = document.getElementById("curso").value;
@@ -49,11 +55,14 @@ function cadastrarAluno() {
 
     const token = localStorage.getItem("authToken");
 
-    // Faz requisição HTTP para a API usando fetch
-    fetch(api, {
+    const url = id ? `${api}/${id}` : api;
+    const method = id ? "PUT" : "POST";
 
-        // Método HTTP usado para criar um novo registro
-        method: "POST",
+    // Faz requisição HTTP para a API usando fetch
+    fetch(url, {
+
+        // Método HTTP usado para criar ou atualizar registro
+        method,
 
         // Cabeçalho informando que estamos enviando JSON + token
         headers: {
@@ -72,6 +81,10 @@ function cadastrarAluno() {
 
         // Limpa os campos do formulário
         limparCampos();
+        // Reseta estado de edição
+        document.getElementById("alunoId").value = "";
+        const btn = document.getElementById("btnSalvar");
+        if (btn) btn.textContent = "Cadastrar";
     });
 }
 
@@ -83,6 +96,7 @@ function cadastrarAluno() {
 function listarAlunos() {
 
     const token = localStorage.getItem("authToken");
+    const userRole = localStorage.getItem("userRole") || "user";
 
     // Faz requisição GET para buscar todos os alunos
     fetch(api, {
@@ -103,6 +117,13 @@ function listarAlunos() {
         alunos.forEach(aluno => {
 
             // Adiciona uma nova linha na tabela
+            const botoes = `
+                <button class="btn-edit" onclick="editarAluno(${aluno.id}, '${aluno.nome.replace(/'/g, "\\'")}', ${aluno.idade}, '${aluno.curso.replace(/'/g, "\\'")}')">
+                    Editar
+                </button>
+                ${userRole === "admin" ? `<button class="btn-delete" onclick="deletarAluno(${aluno.id})">Excluir</button>` : ""}
+            `;
+
             tabela.innerHTML += `
                 <tr>
                     <td>${aluno.id}</td>
@@ -110,9 +131,7 @@ function listarAlunos() {
                     <td>${aluno.idade}</td>
                     <td>${aluno.curso}</td>
                     <td>
-                        <button onclick="deletarAluno(${aluno.id})">
-                            Excluir
-                        </button>
+                        ${botoes}
                     </td>
                 </tr>
             `;
@@ -141,6 +160,19 @@ function deletarAluno(id) {
         // Após deletar, atualiza a lista novamente
         listarAlunos();
     });
+}
+
+// ===============================
+// FUNÇÃO PARA EDITAR ALUNO
+// ===============================
+function editarAluno(id, nome, idade, curso) {
+    document.getElementById("alunoId").value = id;
+    document.getElementById("nome").value = nome;
+    document.getElementById("idade").value = idade;
+    document.getElementById("curso").value = curso;
+
+    const btn = document.getElementById("btnSalvar");
+    if (btn) btn.textContent = "Salvar";
 }
 
 

@@ -35,8 +35,12 @@ CREATE TABLE IF NOT EXISTS usuarios (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     senha_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'user',
     criado_em TIMESTAMP DEFAULT NOW()
 );
 
--- Exemplo de inserção manual (a senha deve ser um hash gerado no backend com bcrypt)
--- INSERT INTO usuarios (email, senha_hash) VALUES ('admin@exemplo.com', 'HASH_DA_SENHA_AQUI');
+-- Caso a tabela já exista sem a coluna role, descomente e rode:
+-- ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS role VARCHAR(20) NOT NULL DEFAULT 'user';
+
+-- O usuário administrador (admin@admin.com, senha qwertyuiop) é criado automaticamente
+-- no primeiro login bem-sucedido com essas credenciais pelo backend.
